@@ -51,16 +51,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // Routes untuk customer
 Route::middleware(['auth', 'role:customer'])->group(function () {
-    Route::get('customer/dashboard', [CustomerController::class, 'dashboard'])->name('customer.dashboard');
-    Route::get('/cars', [CustomerController::class, 'listCars'])->name('customer.cars');
-    Route::get('/cars/{id}', [CustomerController::class, 'carDetails'])->name('customer.car.details');
-    Route::get('rent/{car}', [CarController::class, 'rent'])->name('customer.rent');
+    // Dashboard dan Profil
+    Route::get('customer/dashboard', [App\Http\Controllers\Customer\CustomerController::class, 'dashboard'])->name('customer.dashboard');
+    Route::get('/profile', [App\Http\Controllers\Customer\CustomerController::class, 'profile'])->name('customer.profile');
 
-    Route::get('/rent/{id}', [CustomerController::class, 'rentForm'])->name('customer.rent.form');
-    Route::post('/rent/{id}', [CustomerController::class, 'rent'])->name('customer.rent');
+    // Penyewaan
+    Route::get('/rentals/new', [App\Http\Controllers\Customer\RentalController::class, 'index'])->name('customer.rentals.new'); // Menampilkan mobil yang tersedia untuk disewa
+    Route::post('/rentals/store', [App\Http\Controllers\Customer\RentalController::class, 'store'])->name('customer.rentals.store'); // Menyimpan penyewaan
 
-    Route::get('/rentals', [CustomerController::class, 'rentals'])->name('customer.rentals');
-
-    Route::get('/return/{id}', [CustomerController::class, 'returnForm'])->name('customer.return.form');
-    Route::post('/return/{id}', [CustomerController::class, 'returnCar'])->name('customer.return');
+    // Penyewaan Aktif dan Riwayat Penyewaan
+    Route::get('/rentals/active', [App\Http\Controllers\Customer\CustomerController::class, 'rentalActive'])->name('customer.rentals.active');
+    Route::get('/rentals/history', [App\Http\Controllers\Customer\CustomerController::class, 'rentalHistory'])->name('customer.rentals.history');
 });
+
