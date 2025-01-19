@@ -5,10 +5,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\RentalController;
 use App\Exports\RentalReportExport;
 use Maatwebsite\Excel\Facades\Excel;
 
-Route::get('/', [CustomerController::class, 'home'])->name('customer.home');
+Route::get ('/', [CustomerController::class, 'home'])->name('customer.home');
 
 // Routes untuk registrasi dan login
 Route::get('register', [AuthController::class, 'showRegisterForm'])->name('auth.register');
@@ -52,7 +53,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 // Routes untuk customer
 Route::middleware(['auth', 'role:customer'])->group(function () {
     // Dashboard dan Profil
-    Route::get('customer/dashboard', [App\Http\Controllers\Customer\CustomerController::class, 'dashboard'])->name('customer.dashboard');
+   // Route::get('/', [CustomerController::class, 'home'])->name('customer.home');
+    Route::get('/dashboard',[App\Http\Controllers\Customer\CustomerController::class, 'dashboard'])->name('customer.dashboard');
     Route::get('/profile', [App\Http\Controllers\Customer\CustomerController::class, 'profile'])->name('customer.profile');
 
     // Penyewaan
@@ -62,5 +64,20 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
     // Penyewaan Aktif dan Riwayat Penyewaan
     Route::get('/rentals/active', [App\Http\Controllers\Customer\CustomerController::class, 'rentalActive'])->name('customer.rentals.active');
     Route::get('/rentals/history', [App\Http\Controllers\Customer\CustomerController::class, 'rentalHistory'])->name('customer.rentals.history');
-});
 
+   // Route::get('/cars', [App\Http\Controllers\Customer\CarController::class, 'index'])->name('customer.cars');
+   Route::get('/rent/{id}', [App\Http\Controllers\Customer\RentalController::class, 'show'])->name('customer.rent');
+   Route::post('/rent/store/{id}', [App\Http\Controllers\Customer\RentalController::class, 'storeLanding'])->name('customer.rent.store');
+
+   Route::get('/rentals/confirmation/{id}', [App\Http\Controllers\Customer\RentalController::class, 'showConfirmation'])->name('customer.rentals.confirmation'); // Halaman konfirmasi
+   Route::get('/cars', [CarController::class, 'index'])->name('customer.cars');
+   Route::get('/rentals/landing', [App\Http\Controllers\Customer\RentalController::class, 'indexLanding'])->name('customer.rentals.landing');
+   Route::get('/cars/search', [CarController::class, 'search'])->name('cars.search');
+
+   //Pengembalian mobil
+   Route::get('/rentals/return/{rental}', [App\Http\Controllers\Customer\RentalController::class, 'returnForm'])->name('customer.rentals.return'); // Form pengembalian mobil
+   Route::put('/rentals/return/{rental}', [App\Http\Controllers\Customer\RentalController::class, 'processReturn'])->name('customer.rentals.processReturn'); // Proses pengembalian mobil
+});
+Route::get('/cars', [CarController::class, 'index'])->name('customer.cars');
+Route::get('/rentals/landing', [App\Http\Controllers\Customer\RentalController::class, 'indexLanding'])->name('customer.rentals.landing');
+Route::get('/cars/search', [CarController::class, 'search'])->name('cars.search');

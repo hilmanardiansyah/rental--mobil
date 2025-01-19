@@ -25,6 +25,8 @@
                 <th>Pengguna</th>
                 <th>Tanggal Mulai</th>
                 <th>Tanggal Selesai</th>
+                <th>Tanggal Kembali</th> <!-- Menambahkan Tanggal Kembali -->
+                <th>Biaya Keterlambatan</th> <!-- Menambahkan Biaya Keterlambatan -->
                 <th>Total Biaya</th>
                 <th>Status</th>
                 <th>Aksi</th>
@@ -34,16 +36,20 @@
             @foreach($rentals as $rental)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $rental->car->model }}</td> <!-- Asumsi ada relasi antara Rental dan Car -->
-                <td>{{ $rental->user->name }}</td> <!-- Asumsi ada relasi antara Rental dan User -->
+                <td>{{ $rental->car->model }}</td>
+                <td>{{ $rental->user->name }}</td>
                 <td>{{ $rental->start_date }}</td>
                 <td>{{ $rental->end_date }}</td>
+                <td>{{ $rental->return_date ? $rental->return_date->format('Y-m-d') : '-' }}</td> <!-- Menampilkan return_date -->
+                <td>{{ number_format($rental->late_fee, 0, ',', '.') }}</td> <!-- Menampilkan late_fee -->
                 <td>{{ number_format($rental->total_cost, 0, ',', '.') }}</td>
                 <td>{{ ucfirst($rental->status) }}</td>
                 <td>
                     @if($rental->status == 'pending')
                         <a href="{{ route('admin.rentals.verify', $rental->id) }}" class="btn btn-success">Verifikasi</a>
                         <a href="{{ route('admin.rentals.cancel', $rental->id) }}" class="btn btn-danger">Batal</a>
+                    @elseif($rental->status == 'active')
+                        <p>Sudah Active</p>
                     @else
                         <p>Sudah {{ ucfirst($rental->status) }}</p>
                     @endif

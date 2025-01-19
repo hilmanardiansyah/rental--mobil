@@ -24,6 +24,8 @@
      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     <!-- Favicon dan meta tags lainnya -->
     {{-- <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon"> --}}
+    <link rel="icon" href="{{ asset('/assets/logo/logo-rental.png') }}" type="image/png">
+
 </head>
 <body class="bg-gray-100">
 
@@ -31,8 +33,8 @@
   <div class="header_section">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{{ route('customer.home') }}">
-                <img src="{{ asset('assets/images/logo.png') }}" alt="Logo">
+            <a class="navbar-brand" href="{{ route('customer.home') }}" style="font-size: 1.5rem; font-weight: bold; color: #fe5b29;">
+                RENTAL-MOBIL
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -49,25 +51,31 @@
                     </li>
                     <!-- Rentals Link -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('customer.rentals') }}">Penyewaan</a>
+                        <a class="nav-link" href="{{ route('customer.rentals.landing') }}">Penyewaan</a>
                     </li>
                     <!-- Authenticated User Links -->
-                    @if (Auth::check())
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('customer.dashboard') }}">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('logout') }}">Logout</a>
-                        </li>
-                    <!-- Guest User Links -->
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('auth.login') }}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('auth.register') }}">Registrasi</a>
-                        </li>
-                    @endif
+                    <!-- Authenticated User Links -->
+                @if (Auth::check())
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('customer.dashboard') }}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <!-- Logout Form -->
+                    <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="nav-link" style="background: none; border: none;">Logout</button>
+                    </form>
+                </li>
+                <!-- Guest User Links -->
+                @else
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('auth.login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('auth.register') }}">Registrasi</a>
+                </li>
+                @endif
+
                 </ul>
             </div>
         </nav>
@@ -86,7 +94,7 @@
         <div class="container">
            <div class="row">
               <div class="col-sm-12">
-                 <p class="copyright_text">2023 All Rights Reserved. Design by <a href="https://html.design">Free Html Templates</a></p>
+                 <p class="copyright_text">2025 All Rights Reserved. Design by <a href="#">Hlmnrsyah</a></p>
               </div>
            </div>
         </div>

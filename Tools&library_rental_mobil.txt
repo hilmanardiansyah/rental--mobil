@@ -1,0 +1,13 @@
+Tools:
+1.	Laravel Framework: Framework utama untuk aplikasi web.
+2.	XAMPP: Local environment untuk PHP dan MySQL.
+3.	Composer: Dependency manager untuk PHP.
+4.	Visual Studio Code: Code editor dengan extensions PHP dan Laravel.
+5.	Git: Version control untuk melacak perubahan kode.
+Library & Dependency:
+1.	Feather Icons: Ikon ringan untuk UI.
+2.	Maatwebsite/Laravel-Excel: Ekspor data ke file Excel.
+3.	Carbon: Library untuk manipulasi tanggal.
+4.	Bootstrap CSS: Styling dasar.
+5.	Eloquent ORM: Untuk manipulasi data database di Laravel.
+

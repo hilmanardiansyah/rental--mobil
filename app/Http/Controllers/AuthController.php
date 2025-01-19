@@ -70,7 +70,8 @@ class AuthController extends Controller
             if ($user->hasRole('admin')) {
                 return redirect()->route('admin.dashboard');
             } elseif ($user->hasRole('customer')) {
-                return redirect()->route('customer.dashboard');
+                // Redirect ke halaman yang sebelumnya diminta, jika ada
+                return redirect()->intended('/cars'); // Ganti '/cars' dengan halaman default yang Anda inginkan
             }
 
             // Default jika role tidak dikenali
@@ -86,6 +87,6 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login');
+        return redirect()->route('customer.home');
     }
 }

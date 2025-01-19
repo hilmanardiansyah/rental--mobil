@@ -2,14 +2,14 @@
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
             <a href="{{ route('customer.dashboard') }}">
-                <img alt="image" src="/assets/images/logo/logo-inventory.png" style="width: 60px; height: 60px" class="header-logo" />
-                <span class="logo-name">Rental-Mobil App</span>
+                <img alt="image" src="/assets/logo/logo-rental.png" style="width: 60px; height: 60px" class="header-logo" />
+                <span class="logo-name">Rental-MA</span>
             </a>
         </div>
         <ul class="sidebar-menu">
             <!-- Main Navigation -->
             <li class="menu-header">Main Navigation</li>
-            
+
             <!-- Dashboard Customer -->
             <li class="dropdown{{ request()->routeIs('customer.dashboard') ? ' active' : '' }}">
                 <a href="{{ route('customer.dashboard') }}" class="nav-link">

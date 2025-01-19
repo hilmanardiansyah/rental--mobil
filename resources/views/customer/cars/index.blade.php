@@ -14,10 +14,10 @@
                 <div class="col-md-4">
                     <div class="gallery_box">
                         <div class="gallery_img">
-                            <img src="{{ asset('storage/' . $car->image) }}" alt="{{ $car->name }}">
+                            <img src="{{ asset( $car->image) }}" alt="{{ $car->name }}">
                         </div>
                         <h3 class="types_text">{{ $car->name }}</h3>
-                        <p class="looking_text">Start per day ${{ $car->price_per_day }}</p>
+                        <p class="looking_text">Sewa per hari ${{ $car->rental_rate_per_day }}</p>
                         <div class="read_bt">
                             <a href="{{ route('customer.rent', $car->id) }}">Book Now</a>
                         </div>

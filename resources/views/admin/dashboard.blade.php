@@ -1,4 +1,4 @@
-<x-admin-layouts title="Dashboard Admin" >
+<x-app-layouts title="Dashboard Admin" >
     <div class="row">
         <!-- Info Admin -->
         <div class="col-12 col-md-5">
@@ -154,5 +154,5 @@
             </div>
         </div>
     </div>
-</x-admin-layouts>
+</x-app-layouts>
 

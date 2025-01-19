@@ -1,22 +1,26 @@
-<x-app-layouts title="Penyewaan Aktif">
+<x-app-layouts title="Penyewaan Aktif Dashboard">
     <div class="card">
         <div class="card-header">
             <h4>Penyewaan Aktif</h4>
         </div>
         <div class="card-body col-md-8 col-sm">
             <div class="rental-active">
-                
-                @if($penyewaan_aktif)
-                    <div class="card">
-                        <h3>{{ $penyewaan_aktif->car->nama_mobil }}</h3> <!-- Menampilkan nama mobil -->
-                        <p><strong>Start Date:</strong> {{ $penyewaan_aktif->start_date->format('d M Y') }}</p>
-                        <p><strong>End Date:</strong> {{ $penyewaan_aktif->end_date->format('d M Y') }}</p>
-                        <p><strong>Total Cost:</strong> Rp. {{ number_format($penyewaan_aktif->total_cost, 0, ',', '.') }}</p>
-                        <p><strong>Status:</strong> Aktif</p>
-                    </div>
-                @else
-                    <p>Anda tidak memiliki penyewaan aktif saat ini.</p>
-                @endif
+
+                @if($activeRentals->count() > 0)
+                <div class="list-group">
+                    @foreach($activeRentals as $rental)
+                        <div class="list-group-item">
+                            <h5>{{ $rental->car->name }}</h5>
+                            <p>Tanggal Mulai: {{ $rental->start_date }}</p>
+                            <p>Tanggal Selesai: {{ $rental->end_date }}</p>
+
+                            <a href="{{ route('customer.rentals.return', $rental->id) }}" class="btn btn-warning">Kembalikan Mobil</a>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <p>Anda tidak memiliki penyewaan aktif.</p>
+            @endif
             </div>
         </div>
     </div>

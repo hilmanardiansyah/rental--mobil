@@ -6,9 +6,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Rental; // Sesuaikan model
 use App\Models\User;
+use App\Models\Car;
+use Illuminate\Support\Facades\Auth;
+
 
 class CustomerController extends Controller
 {
+    public function home()
+    {
+        $featuredCars = Car::where('is_available', true)->take(6)->get(); // Ambil 6 mobil yang tersedia
+        if (Auth::check() && Auth::user()->role === 'customer') {
+            return redirect()->route('customer.dashboard');
+        }
+        return view('customer.home', compact('featuredCars')); // Kirim data mobil ke view
+    }
+
     public function dashboard()
     {
           $today = now();
@@ -34,15 +46,13 @@ class CustomerController extends Controller
 
     public function rentalActive()
     {
-    $today = now(); // Ambil tanggal saat ini
-    $penyewaan_aktif = Rental::where('user_id', auth()->id()) // Filter berdasarkan user yang login
-                            ->where('start_date', '<=', $today) // Penyewaan yang sudah mulai
-                            ->where('end_date', '>=', $today) // Penyewaan yang belum berakhir
-                            ->first(); // Ambil penyewaan pertama (kalau ada)
+        $activeRentals = Rental::where('user_id', auth()->id())
+        ->where('status', 'active')
+        ->get(); // Mengambil penyewaan aktif berdasarkan status
 
-    return view('customer.rentals.active', [
-        'penyewaan_aktif' => $penyewaan_aktif,
-    ]);
+// Kirim data ke view
+    return view('customer.rentals.active', compact('activeRentals'));
+
     }
     public function rentalHistory()
     {

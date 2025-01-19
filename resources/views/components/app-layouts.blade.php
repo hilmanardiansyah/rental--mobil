@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="{{ asset('admin/css/components.css') }}">
   <!-- Custom style CSS -->
   <link rel="stylesheet" href="{{ asset('admin/css/custom.css') }}">
-  {{-- <link rel="icon" href="{{ asset('admin/images/logo/logo-inventory.png') }}" type="image/png"> --}}
+  <link rel="icon" href="{{ asset('/assets/logo/logo-rental.png') }}" type="image/png">
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
